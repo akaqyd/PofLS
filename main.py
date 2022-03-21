@@ -55,6 +55,7 @@ class Experiment:
 
             if (k == ord('q')):
                 self.save()
+                self.plot([self.filename])
                 break
 
 
