@@ -232,12 +232,8 @@ class Experiment:
 
         plt.hist(t, bins=20, range=(200, 1500), label=labels)
         plt.legend(prop ={'size': 10})
-
-        # plt.hist(go_t, bins=20, range=(0, 2000), label="Go")
-        # plt.hist(stop_f_t, bins=20, range=(0, 2000), label="Stop Failed")
-        # plt.hist(decide_s_t, bins=20, range=(0, 2000), label="Decide Succeeded")
-        # plt.hist(decide_f_t, bins=20, range=(0, 2000), label="Decide Failed")
-
+        plt.ylabel("Counts")
+        plt.xlabel("Reaction Time (ms)")
         plt.show()
         
 
