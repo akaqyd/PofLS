@@ -59,7 +59,7 @@ class Experiment:
     def run(self):
         while True:
             img = gray.copy()
-            img = cv2.putText(img, "Press C => Start a round of experiment", (40, 364), self.font, 0.75, (0, 0, 0), 2, cv2.LINE_AA)
+            img = cv2.putText(img, "Press C => Start a round of experiments", (40, 364), self.font, 0.75, (0, 0, 0), 2, cv2.LINE_AA)
             img = cv2.putText(img, "Press Q => Quit and store the experiment records", (40, 394), self.font, 0.75, (0, 0, 0), 2, cv2.LINE_AA)
             img = cv2.putText(img, "Completed rounds: " + str(self.count), (40, 424), self.font, 0.75, (0, 0, 0), 2, cv2.LINE_AA)
             cv2.imshow(self.title, img)
