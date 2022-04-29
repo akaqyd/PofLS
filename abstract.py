@@ -75,6 +75,7 @@ class Experiment:
     def __init__(self, experiment_id):
         self.experiment_id = experiment_id + "-" + datetime.datetime.now().strftime("%c")
         self.experiment_id = self.experiment_id.replace(" ", "-")
+        self.experiment_id = self.experiment_id.replace(":", "-")
         self.title = f"Experiment: {self.experiment_id}"
         self.filename = f"./data/abstract-{self.experiment_id}.json"
     
@@ -121,7 +122,7 @@ class Experiment:
             img = gray.copy()
             if k == -1:  # no response
                 self.count -= 1
-                img = cv2.putText(img, "Error. Please response ASAP! This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                img = cv2.putText(img, "Error. Please response ASAP!", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 cv2.imshow(self.title, img)
@@ -170,7 +171,7 @@ class Experiment:
                 end_time = time.time()
                 if k == -1:  # no response
                     self.count -= 1
-                    img = cv2.putText(img, "Error. Please response ASAP! This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                    img = cv2.putText(img, "Error. Please response ASAP!", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -196,7 +197,7 @@ class Experiment:
                         pass
                 else :  # wrong response
                     self.count -= 1
-                    img = cv2.putText(img, "Error! Wrong answer. This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                    img = cv2.putText(img, "Error! Wrong answer.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -221,7 +222,7 @@ class Experiment:
                         pass
                 else:
                     self.count -= 1
-                    img = cv2.putText(img, "Error! Wrong answer. This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                    img = cv2.putText(img, "Error! Wrong answer.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -271,7 +272,7 @@ class Experiment:
                         pass
                 elif k == -1:  # no response
                     self.count -= 1
-                    img = cv2.putText(img, "Error. Please response ASAP! This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                    img = cv2.putText(img, "Error. Please response ASAP!", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -279,7 +280,7 @@ class Experiment:
                         pass
                 else :  # wrong response
                     self.count -= 1
-                    img = cv2.putText(img, "Error! Wrong answer. This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
+                    img = cv2.putText(img, "Error! Wrong answer.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "This round is discarded.", (40, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (40, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
