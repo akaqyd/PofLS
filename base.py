@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 
 
 height, width = 768, 768 
+font = cv2.FONT_HERSHEY_SIMPLEX
+
 red = np.ones((height, width, 3)).astype(np.uint8)
 green = np.ones((height, width, 3)).astype(np.uint8)
 yellow = np.ones((height, width, 3)).astype(np.uint8)
@@ -18,11 +20,20 @@ green[:, :, 1] *= 255
 yellow[:, :, 1:3] *= 255
 gray[:, :, :] *= 128
 
+
+GO = gray.copy()
+GO = cv2.putText(GO, "V", (384, 384), font, 1.5, (255, 255, 255), 2, cv2.LINE_AA)
+STOP = gray.copy()
+STOP = cv2.putText(STOP, "V", (384, 384), font, 1.5, (147, 0, 214), 2, cv2.LINE_AA)
+DECIDE = gray.copy()
+DECIDE = cv2.putText(DECIDE, "V", (384, 384), font, 1.5, (255, 102, 102), 2, cv2.LINE_AA)
+
+
 class Experiment:
     experiment_id = ""
     title = ""
     filename = ""
-    # proportions = (0.75, 0.125, 0.125)  # (go, stop, decide) must sum to 1.0
+    # proportions = (0.75, 0.125, 0.125)  # original setting from the paper, (go, stop, decide) must sum to 1.0
     proportions = (0.33, 0.33, 0.34)  # (go, stop, decide) must sum to 1.0
     records = []
     count = 0
@@ -65,18 +76,18 @@ class Experiment:
         r = np.random.rand()
         experiment_type = "go" if r <= self.proportions[0] else ("stop" if (r - self.proportions[0]) <= self.proportions[1] else "decide")
         img = gray.copy()
-        img = cv2.putText(img, "X", (384, 384), self.font, 1.5, (0, 0, 0), 2, cv2.LINE_AA)
+        img = cv2.putText(img, "x", (384, 384), self.font, 1.5, (0, 0, 0), 2, cv2.LINE_AA)
         cv2.imshow(self.title, img)
         cv2.waitKey(500)
         cv2.imshow(self.title, gray)
         cv2.waitKey(500)
 
         if experiment_type == 'go':
-            cv2.imshow(self.title, green)
+            cv2.imshow(self.title, GO)
             start_time = time.time()
             k = cv2.waitKey(2000)
             end_time = time.time()
-            img = green.copy()
+            img = gray.copy()
             if k == -1:  # no response
                 self.count -= 1
                 img = cv2.putText(img, "Error. Please response ASAP! This round is discarded.", (40, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
@@ -94,7 +105,7 @@ class Experiment:
                 while cv2.waitKey(0) != ord('c'):
                     pass
         elif experiment_type == 'stop':
-            cv2.imshow(self.title, green)
+            cv2.imshow(self.title, GO)
             start_time = time.time()
             k = cv2.waitKey(self.delay_stop)
             end_time = time.time()
@@ -102,21 +113,21 @@ class Experiment:
                 response_time = (end_time - start_time) * 1000
                 rec = self.record(experiment_type, response_time)
                 self.delay_stop -= 20
-                img = green.copy()
+                img = gray.copy()
                 img = cv2.putText(img, "Succeed. The response time is recorded", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 cv2.imshow(self.title, img)
                 while cv2.waitKey(0) != ord('c'):
                     pass
             else:   # show stop sign
-                cv2.imshow(self.title, red)
+                cv2.imshow(self.title, STOP)
                 k = cv2.waitKey(2000 - self.delay_stop)
                 end_time = time.time()
                 if k != -1:     # stop failed
                     response_time = (end_time - start_time) * 1000
                     rec = self.record(experiment_type, response_time)
                     self.delay_stop -= 20
-                    img = red.copy()
+                    img = gray.copy()
                     img = cv2.putText(img, "Stop failed. The response time is recorded", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -124,14 +135,14 @@ class Experiment:
                         pass
                 else:   # stop Succeed
                     self.delay_stop += 20
-                    img = red.copy()
+                    img = gray.copy()
                     img = cv2.putText(img, "Stop succeed.", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
                     while cv2.waitKey(0) != ord('c'):
                         pass
         else:
-            cv2.imshow(self.title, green)
+            cv2.imshow(self.title, GO)
             start_time = time.time()
             k = cv2.waitKey(self.delay_decide)
             end_time = time.time()
@@ -139,20 +150,19 @@ class Experiment:
                 response_time = (end_time - start_time) * 1000
                 rec = self.record(experiment_type + "-fail", response_time)
                 self.delay_decide -= 20
-                img = green.copy()
+                img = gray.copy()
                 img = cv2.putText(img, "Succeed. The response time is recorded", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                 cv2.imshow(self.title, img)
                 while cv2.waitKey(0) != ord('c'):
                     pass
             else:   # show decide sign
-                cv2.imshow(self.title, yellow)
+                cv2.imshow(self.title, DECIDE)
                 k = cv2.waitKey(2000 - self.delay_decide)
                 end_time = time.time()
                 if k != -1:     # button pressed in a decide round
                     response_time = (end_time - start_time) * 1000
-
-                    img = yellow.copy()
+                    img = gray.copy()
                     img = cv2.putText(img, "Button pressed in a DECIDE round.", (20, 354), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press Y if it was your own decision", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press N if you were just acting on impulse", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
@@ -169,7 +179,7 @@ class Experiment:
                         rec = self.record(experiment_type + "-fail", response_time)
                         self.delay_decide -= 20
 
-                    img = yellow.copy()
+                    img = gray.copy()
                     img = cv2.putText(img, "The response time is recorded", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
@@ -177,7 +187,7 @@ class Experiment:
                         pass
                 else:   # no button pressed in a decide round
                     self.delay_stop += 20
-                    img = yellow.copy()
+                    img = gray.copy()
                     img = cv2.putText(img, "You decide not to press the button.", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     cv2.imshow(self.title, img)
