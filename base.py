@@ -21,13 +21,20 @@ yellow[:, :, 1:3] *= 255
 gray[:, :, :] *= 128
 
 
-GO = gray.copy()
-GO = cv2.putText(GO, "V", (384, 384), font, 1.5, (255, 255, 255), 2, cv2.LINE_AA)
-STOP = gray.copy()
-STOP = cv2.putText(STOP, "V", (384, 384), font, 1.5, (147, 0, 214), 2, cv2.LINE_AA)
-DECIDE = gray.copy()
-DECIDE = cv2.putText(DECIDE, "V", (384, 384), font, 1.5, (255, 102, 102), 2, cv2.LINE_AA)
+# GO = gray.copy()
+# GO = cv2.putText(GO, "V", (384, 384), font, 1.5, (255, 255, 255), 2, cv2.LINE_AA)
+# STOP = gray.copy()
+# STOP = cv2.putText(STOP, "V", (384, 384), font, 1.5, (147, 0, 214), 2, cv2.LINE_AA)
+# DECIDE = gray.copy()
+# DECIDE = cv2.putText(DECIDE, "V", (384, 384), font, 1.5, (255, 102, 102), 2, cv2.LINE_AA)
 
+# larger V, same as abstract.py
+GO = gray.copy()
+GO = cv2.putText(GO, "V", (340, 380), font, 5, (255, 255, 255), 5, cv2.LINE_AA)
+STOP = gray.copy()
+STOP = cv2.putText(STOP, "V", (340, 380), font, 5, (147, 0, 214), 5, cv2.LINE_AA)
+DECIDE = gray.copy()
+DECIDE = cv2.putText(DECIDE, "V", (340, 380), font, 5, (255, 102, 102), 5, cv2.LINE_AA)
 
 class Experiment:
     experiment_id = ""
