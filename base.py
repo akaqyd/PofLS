@@ -194,7 +194,7 @@ class Experiment:
                     while cv2.waitKey(0) != ord('c'):
                         pass
                 else:   # no button pressed in a decide round
-                    self.delay_stop += 20
+                    self.delay_decide += 20
                     img = gray.copy()
                     img = cv2.putText(img, "You decide not to press the button.", (20, 384), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
                     img = cv2.putText(img, "Press C to continue.", (20, 414), self.font, 1, (0, 0, 0), 2, cv2.LINE_AA)
