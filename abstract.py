@@ -29,13 +29,17 @@ DECIDE = gray.copy()
 DECIDE = cv2.putText(DECIDE, "V", (340, 380), font, 5, (255, 102, 102), 5, cv2.LINE_AA)
 
 def generateNumbers():
-    a = np.random.randint(1, 10)
-    b = np.random.randint(1, 10)
-    if b > a:   # ensure a >= b
-        a, b = b, a
-    
-    add = a + b
-    sub = a - b
+    while True:
+        a = np.random.randint(1, 10)
+        b = np.random.randint(1, 10)
+        if b > a:   # ensure a >= b
+            a, b = b, a
+        
+        add = a + b
+        sub = a - b
+        if add < 10 and sub < 10:
+            break
+
     wrong = np.random.randint(0, 19)
     while wrong == add or wrong == sub:
         wrong = np.random.randint(0, 19)
