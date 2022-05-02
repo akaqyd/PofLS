@@ -42,7 +42,7 @@ def generateNumbers():
 
     wrong = np.random.randint(0, 10)
     while wrong == add or wrong == sub:
-        wrong = np.random.randint(0, 19)
+        wrong = np.random.randint(0, 10)
     
     choices = [add, sub, wrong]
     np.random.shuffle(choices)
@@ -67,12 +67,15 @@ class Experiment:
     experiment_id = ""
     title = ""
     filename = ""
-    # proportions = (0.75, 0.125, 0.125)  # original setting from the paper, (go, stop, decide) must sum to 1.0
-    proportions = (0.33, 0.33, 0.34)  # (go, stop, decide) must sum to 1.0
+
+    # (go, stop, decide) must sum to 1.0
+    # proportions = (0.50, 0.25, 0.25)  # for experiment
+    proportions = (0.33, 0.33, 0.34)  # for presentation purpose
+
     records = []
     count = 0
-    delay_stop = 300
-    delay_decide = 300 
+    delay_stop = 600
+    delay_decide = 600 
 
     font = cv2.FONT_HERSHEY_SIMPLEX
    

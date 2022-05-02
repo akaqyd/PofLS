@@ -40,8 +40,11 @@ class Experiment:
     experiment_id = ""
     title = ""
     filename = ""
-    # proportions = (0.75, 0.125, 0.125)  # original setting from the paper, (go, stop, decide) must sum to 1.0
-    proportions = (0.33, 0.33, 0.34)  # (go, stop, decide) must sum to 1.0
+
+    # (go, stop, decide) must sum to 1.0
+    # proportions = (0.50, 0.25, 0.25)  # for experiment
+    proportions = (0.33, 0.33, 0.34)  # for presentation purpose
+
     records = []
     count = 0
     delay_stop = 300
