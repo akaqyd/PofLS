@@ -40,7 +40,7 @@ def generateNumbers():
         if add < 10 and sub < 10:
             break
 
-    wrong = np.random.randint(0, 19)
+    wrong = np.random.randint(0, 10)
     while wrong == add or wrong == sub:
         wrong = np.random.randint(0, 19)
     
