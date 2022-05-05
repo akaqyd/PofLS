@@ -42,8 +42,8 @@ class Experiment:
     filename = ""
 
     # (go, stop, decide) must sum to 1.0
-    # proportions = (0.50, 0.25, 0.25)  # for experiment
-    proportions = (0.33, 0.33, 0.34)  # for presentation purpose
+    proportions = (0.50, 0.25, 0.25)  # for experiment
+    # proportions = (0.33, 0.33, 0.34)  # for presentation purpose
 
     records = []
     count = 0
