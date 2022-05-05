@@ -252,7 +252,7 @@ class Experiment:
 
         plt.figure()
 
-        plt.hist(t, bins=20, range=(200, 1500), label=labels)
+        plt.hist(t, bins=10, range=(200, 1500), label=labels)
         plt.legend(prop ={'size': 10})
         plt.ylabel("Counts")
         plt.xlabel("Reaction Time (ms)")

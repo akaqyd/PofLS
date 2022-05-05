@@ -346,6 +346,7 @@ class Experiment:
         plt.ylabel("Counts")
         plt.xlabel("Reaction Time (ms)")
         plt.show()
+
         
 
         
